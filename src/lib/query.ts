@@ -109,6 +109,7 @@ export const ARTICLE_QUERY = gql`
           orderBy: publishedAt_ASC
           first: 3
         ) {
+          id
           title
           slug
           publishedAt

@@ -50,7 +50,7 @@ const ThemeSwitcher = () => {
         <DropdownMenuPrimitive.Trigger
           className={cx(
             "inline-flex select-none justify-center rounded-md px-2.5 py-2 text-sm font-medium",
-            "bg-white text-gray-900 hover:bg-gray-50 dark:bg-black dark:text-gray-100 hover:dark:bg-gray-600",
+            "bg-white text-gray-900 hover:bg-gray-50 dark:bg-white/10 dark:text-gray-100 hover:dark:bg-white/10",
             "border border-gray-300 dark:border-transparent",
             "focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
           )}
@@ -75,12 +75,12 @@ const ThemeSwitcher = () => {
 
         <DropdownMenuPrimitive.Portal>
           <DropdownMenuPrimitive.Content
-            align="end"
+            align="center"
             sideOffset={5}
             className={cx(
-              " radix-side-top:animate-slide-up radix-side-bottom:animate-slide-down",
-              "w-48 rounded-lg px-1.5 py-1 shadow-md md:w-56",
-              "bg-gray-50 dark:bg-gray-700"
+              "z-200 radix-side-top:animate-slide-up radix-side-bottom:animate-slide-down",
+              "w-32 rounded-lg px-1.5 py-1 shadow-md",
+              "bg-gray-50 dark:bg-white/10"
             )}
           >
             {themes.map(({ key, label, icon }, i) => {
@@ -89,7 +89,7 @@ const ThemeSwitcher = () => {
                   key={`theme-${i}`}
                   className={cx(
                     "flex w-full cursor-default select-none items-center rounded-md px-2 py-2 text-xs outline-none",
-                    "text-gray-500 focus:bg-gray-200 dark:text-gray-400 dark:focus:bg-gray-800"
+                    "text-gray-500 focus:bg-gray-200 dark:text-gray-400 dark:focus:bg-white/20"
                   )}
                   onClick={() => {
                     (window as any).__setPreferredTheme(key);

@@ -7,9 +7,9 @@ export const SearchBox = () => {
   const router = useRouter();
 
   return (
-    <div>
+    <div className="w-full">
       <form
-        className="m-4 flex items-center gap-2"
+        className="flex items-center gap-2 w-full"
         onSubmit={(e) => {
           e.preventDefault();
 
@@ -22,7 +22,7 @@ export const SearchBox = () => {
           onChange={(e) => {
             setText(e.target.value);
           }}
-          className="border-0 border-b border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-400 mr-0 text-gray-700 bg-transparent"
+          className="w-full border border-gray-300 rounded dark:placeholder:text-white dark:text-white appearance-none focus:outline-none focus:ring-0 focus:border-gray-400 py-2 px-1 text-gray-700 bg-transparent"
           placeholder="search..."
         />
         <button type="submit">

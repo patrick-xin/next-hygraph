@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 import { Navbar } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { Menu } from "@/lib/types";
+import { useScrollDirection } from "@/lib/hooks";
+import { useRouter } from "next/router";
 
 type IMainProps = {
   meta: ReactNode;
@@ -10,15 +12,30 @@ type IMainProps = {
   children: ReactNode;
 };
 
-const Main = (props: IMainProps) => (
-  <>
-    {props.meta}
+const Main = (props: IMainProps) => {
+  const scrollDir = useScrollDirection({
+    initialDirection: "up",
+    thresholdPixels: 0,
+    off: false,
+  });
+  const scrollDown = scrollDir === "down";
+  const { route } = useRouter();
 
-    <Navbar menu={props.menu} />
-    <div className="py-6 overflow-hidden min-h-screen">{props.children}</div>
+  return (
+    <>
+      {props.meta}
 
-    <Footer />
-  </>
-);
+      <Navbar
+        menu={props.menu}
+        shown={!scrollDown || !route.includes("article")}
+      />
+      <div className="py-6 overflow-hidden min-h-screen mt-32">
+        {props.children}
+      </div>
+
+      <Footer />
+    </>
+  );
+};
 
 export { Main };

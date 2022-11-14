@@ -1,45 +1,46 @@
-import { SearchBox } from "@/components/navigation/SearchBox";
 import { Menu } from "@/lib/types";
-
+import { AnimatePresence, motion } from "framer-motion";
+import { IoMdMenu } from "react-icons/io";
 import Link from "next/link";
+import { useState } from "react";
+
+import Drawer from "./Drawer";
 
 import { MobileMenu } from "./MobileMenu";
 import NavigationMenu from "./NavigationMenu";
-import ThemeSwitcher from "./ThemeSwitch";
 
-export const Navbar = ({ menu }: { menu: Menu }) => {
+export const Navbar = ({ menu, shown }: { menu: Menu; shown: boolean }) => {
+  const [open, setOpen] = useState(false);
   return (
-    <div className="bg-[#F0F0F0] dark:bg-black w-full">
-      <Banner />
-      <nav className="w-full h-16 flex items-center justify-between px-6 lg:h-32">
-        <div>
-          <Link href="/">{menu?.["Livingetc"]?.label}</Link>
-        </div>
-        <MobileMenu />
-        <ul className="gap-4 text-xl h-full items-center hidden lg:flex">
-          <NavigationMenu menu={menu} />
+    <AnimatePresence>
+      {shown && (
+        <motion.header
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ ease: "linear" }}
+          className="fixed inset-0 w-full h-16 lg:h-32 z-50 rounded-b-lg"
+        >
+          <div className="bg-[#F0F0F0] dark:bg-black w-full h-full">
+            <nav className="w-full h-full flex items-center justify-between px-6 lg:px-24">
+              <div>
+                <Link href="/">{menu?.["Livingetc"]?.label}</Link>
+              </div>
+              <MobileMenu />
+              <div className="gap-4 text-xl h-full items-center hidden lg:flex">
+                <NavigationMenu menu={menu} />
 
-          <ThemeSwitcher />
-          {/* {categories.map((cat) => (
-            <li key={cat.slug}>
-              <Link href={`/category/${cat.slug}`}>{cat.name}</Link>
-            </li>
-          ))} */}
-          <div>
-            <SearchBox />
+                <div className="flex items-center">
+                  <button onClick={() => setOpen(true)}>
+                    <IoMdMenu />
+                  </button>
+                </div>
+                <Drawer open={open} close={() => setOpen(false)} />
+              </div>
+            </nav>
           </div>
-        </ul>
-      </nav>
-    </div>
-  );
-};
-
-const Banner = () => {
-  return (
-    <div className="bg-[#ca9a9a] dark:bg-[#6E75A8] h-12 text-white flex items-center">
-      <div className="text-sm max-w-3xl mx-auto">
-        Magazine and newspaper with news arround the world
-      </div>
-    </div>
+        </motion.header>
+      )}
+    </AnimatePresence>
   );
 };

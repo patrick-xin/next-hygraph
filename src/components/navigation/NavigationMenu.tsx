@@ -23,7 +23,7 @@ const topics = [
 const NavigationMenu = ({ menu }: { menu: Menu }) => {
   return (
     <NavigationMenuPrimitive.Root className="relative">
-      <NavigationMenuPrimitive.List className="flex flex-row rounded-lg p-2 space-x-2 lg:space-x-8">
+      <NavigationMenuPrimitive.List className="flex flex-row rounded-lg p-2 space-x-2 lg:space-x-8 items-center">
         <NavigationMenuPrimitive.Item>
           <TriggerTitle title={menu["Trends"]!.label} />
 
@@ -100,7 +100,7 @@ const NavigationMenu = ({ menu }: { menu: Menu }) => {
           </NavigationMenuPrimitive.Content>
         </NavigationMenuPrimitive.Item>
 
-        <NavigationMenuPrimitive.Item asChild>
+        <NavigationMenuPrimitive.Item>
           <Link
             href={menu["Shopping"]!.path}
             className="px-3 py-2 rounded-md capitalize text-lg lg:text-xl font-display text-gray-700 dark:text-gray-100"
@@ -108,7 +108,7 @@ const NavigationMenu = ({ menu }: { menu: Menu }) => {
             {menu["Shopping"]!.label}
           </Link>
         </NavigationMenuPrimitive.Item>
-        <NavigationMenuPrimitive.Item asChild>
+        <NavigationMenuPrimitive.Item>
           <Link
             href="/about"
             className="px-3 py-2 rounded-md capitalize text-lg lg:text-xl font-display text-gray-700 dark:text-gray-100"
