@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-[#F5F5F5] text-gray-800 scroll-smooth antialiased font-body dark:bg-[#050505] dark:text-[#D3D4D9];
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-display;
+}
+html {
+  scrollbar-color: #00000080 transparent;
+  scrollbar-width: auto;
+}
+
+html[class*="dark"] {
+  @apply bg-gray-900;
+  scrollbar-color: #ffffffb3 transparent;
+  scrollbar-width: auto;
+}
+
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-black/50 dark:bg-white/70;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-black/60 dark:hover:bg-white/80;
+}
+
+button {
+  /* Disables tap highlight color on Chrome */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Input darkmode fix for checkbox / radio */
+.dark [type="checkbox"]:checked,
+.dark [type="radio"]:checked {
+  background-color: currentColor;
+}
+
+.embla {
+  @apply relative bg-transparent mx-auto;
+}
+
+.embla__viewport {
+  @apply overflow-hidden w-full;
+}
+
+.embla__viewport.is-draggable {
+  cursor: move;
+  cursor: grab;
+}
+
+.embla__viewport.is-dragging {
+  cursor: grabbing;
+}
+
+.embla__container {
+  @apply flex select-none -ml-2.5;
+  -webkit-touch-callout: none;
+  -khtml-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.embla__slide {
+  @apply relative min-w-full pl-2.5;
+}
+
+.embla__slide__inner {
+  @apply relative overflow-hidden;
+}
