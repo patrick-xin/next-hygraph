@@ -95,7 +95,7 @@ const EmblaCarousel = ({ carousel }: { carousel: Blog[] }) => {
                   />
                 </div>
                 <div className="absolute inset-0 m-auto ml-2.5 flex items-center justify-center">
-                  <div className="bg-white/90 dark:bg-black/90 min-h-[12rem] mt-12 lg:mt-0 lg:min-h-[24rem] lg:max-w-3xl xl:max-w-4xl py-6 px-10 lg:px-20 w-full">
+                  <div className="bg-white/90 dark:bg-black/70 min-h-[12rem] mt-4 lg:mt-0 lg:min-h-[24rem] lg:max-w-3xl xl:max-w-4xl py-6 px-10 md:px-16 lg:px-20 w-full">
                     <Link
                       href={`/article/${slide.slug}`}
                       className="inline-block"
@@ -105,7 +105,7 @@ const EmblaCarousel = ({ carousel }: { carousel: Blog[] }) => {
                       </h1>
                     </Link>
 
-                    <p className="text-sm md:text-base line-clamp-2 md:line-clamp-3 lg:line-clamp-4">
+                    <p className="text-sm hidden md:block md:text-base line-clamp-2 md:line-clamp-3 lg:line-clamp-4">
                       {slide.excerpt}
                     </p>
                   </div>

@@ -20,8 +20,8 @@ const Drawer = ({ close, open }: DrawerProps) => {
           initial={{ x: 1000 }}
           animate={{ x: 0 }}
           exit={{ x: 1000 }}
-          transition={{ type: "keyframes", duration: 0.7 }}
-          className="fixed z-100 max-h-screen overflow-y-hidden flex flex-col justify-between right-0 bg-white dark:bg-[#050505] dark:border-l dark:border-white shadow-lg h-screen md:w-1/2 lg:w-1/3 lg:right-0 lg:top-0"
+          transition={{ type: "tween", duration: 0.6, ease: "linear" }}
+          className="fixed flex flex-col justify-between inset-0 bg-white dark:bg-[#050505] dark:border-l dark:border-white/20 shadow-lg h-screen w-full md:w-1/2 lg:w-1/3  md:ml-auto  z-200"
         >
           <div className="relative h-full w-full px-6">
             <button

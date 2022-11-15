@@ -16,6 +16,7 @@ import { Main } from "@/templates/Main";
 
 import { About } from "@/components/pages/home/About";
 import { AppConfig } from "@/utils/AppConfig";
+import Card from "@/components/shared/Card";
 
 type Props = {
   design_ideas_category: Category;
@@ -48,6 +49,7 @@ const Index = ({
             title={design_ideas_category.name}
             posts={design_ideas_category.blogs}
             slug={design_ideas_category.slug}
+            imgSize="vertical"
           />
           <Column
             className="border-black/20 dark:border-white/90 md:pl-4 md:pr-2 lg:px-8 md:border-l lg:border-r lg:col-span-6 lg:col-start-4"
@@ -60,10 +62,17 @@ const Index = ({
             title={advice_category.name}
             posts={advice_category.blogs}
             slug={advice_category.slug}
+            imgSize="vertical"
+            grid
           />
 
-          <About className="lg:hidden mb-8" />
+          <About className="lg:hidden mb-8 md:col-span-full" />
         </Grid>
+        <section className="grid grid-cols-2 md:grid-cols-3 gap-6 my-8">
+          {design_ideas_category.blogs.map((article) => (
+            <Card key={article.id} article={article} />
+          ))}
+        </section>
       </LayoutContainer>
     </Main>
   );

@@ -9,10 +9,11 @@ import { Blog, IMenu, Menu } from "@/lib/types";
 import { client } from "@/lib/client";
 import { ARTICLE_QUERY, BLOGS_QUERY } from "@/lib/query";
 import { AuthorAvatar } from "@/components/shared/AuthorAvatar";
-import { ReadMore } from "@/components/shared/ReadMore";
+
 import { LayoutContainer } from "@/layouts/LayoutContainer";
 import { Main } from "@/templates/Main";
 import { Meta } from "@/layouts/Meta";
+import Card from "@/components/shared/Card";
 
 const MainColumn = ({ post }: { post: Blog }) => {
   return (
@@ -27,7 +28,7 @@ const MainColumn = ({ post }: { post: Blog }) => {
         <AuthorAvatar
           author={post.author}
           hasDate
-          publishedAt={post.createdAt}
+          publishedAt={post.publishedAt}
         />
       </div>
 
@@ -117,15 +118,7 @@ const RecentColumn = ({ post }: { post: Blog }) => {
       </h3>
       <div className="divide-y space-y-6">
         {post.author.recentPosts.map((post) => (
-          <div className="py-4" key={post.id}>
-            <Link href={`/article/${post.slug}`}>
-              <h2 className="font-bold text-2xl my-3 underline capitalize">
-                {post.title}
-              </h2>
-            </Link>
-            <p className="line-clamp-2">{post.excerpt}</p>
-            <ReadMore href={`/article/${post.slug}`} />
-          </div>
+          <Card key={post.id} article={post} />
         ))}
       </div>
     </div>

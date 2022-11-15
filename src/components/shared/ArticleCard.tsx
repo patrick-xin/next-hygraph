@@ -10,7 +10,7 @@ import { ReadMore } from "./ReadMore";
 
 type FeaturedArticleProps = Pick<
   Blog,
-  "title" | "author" | "coverImage" | "excerpt" | "slug" | "createdAt"
+  "title" | "author" | "coverImage" | "excerpt" | "slug" | "publishedAt"
 >;
 
 type Props = {
@@ -26,14 +26,14 @@ export const ArticleCard = ({
   author,
   excerpt,
   slug,
-  createdAt,
+  publishedAt,
   hasAuthor = true,
   hasDate = false,
   dateFormat,
   imgSize = "horizontal",
 }: Props) => {
   const sizes = {
-    vertical: "lg:h-[26rem] xl:h-[32rem]",
+    vertical: "lg:h-[26rem] xl:h-[30rem]",
     horizontal: "md:w-full",
   };
 
@@ -52,7 +52,7 @@ export const ArticleCard = ({
       </div>
 
       <div className="my-4 space-y-2 max-w-2xl lg:space-y-4">
-        <PublishDate publishedAt={createdAt} />
+        <PublishDate publishedAt={publishedAt} />
 
         <h2 className="font-semibold text-2xl lg:text-3xl hover:underline capitalize">
           <Link href={`/article/${slug}`}>{title}</Link>
@@ -60,7 +60,7 @@ export const ArticleCard = ({
         {hasAuthor && (
           <AuthorAvatar
             author={author}
-            publishedAt={createdAt}
+            publishedAt={publishedAt}
             size="sm"
             dateFormat={dateFormat}
             hasDate={hasDate}

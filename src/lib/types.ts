@@ -26,7 +26,7 @@ export interface Blog {
   id: string;
   title: string;
   stage: string;
-  createdAt: string;
+  publishedAt: string;
   excerpt: string;
   content: Content;
   author: Author;

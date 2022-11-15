@@ -57,7 +57,7 @@ const CategoryPage = ({
               className="rounded object-cover"
             />
           </div>
-          <div className="absolute -bottom-16 p-8 z-20 right-0 left-0 mx-auto bg-white/90 dark:bg-black/80 bg-opacity-90 shadow w-5/6 flex justify-center">
+          <div className="absolute -bottom-16 p-8 z-20 right-0 left-0 mx-auto bg-white/90 dark:bg-black/70 bg-opacity-90 shadow w-5/6 flex justify-center">
             <div className="space-y-6">
               <h2 className="text-4xl font-bold">
                 <Link
@@ -70,7 +70,7 @@ const CategoryPage = ({
               <p>{newest.node.excerpt}</p>
               <AuthorAvatar
                 author={newest.node.author}
-                publishedAt={newest.node.createdAt}
+                publishedAt={newest.node.publishedAt}
               />
             </div>
           </div>

@@ -22,6 +22,7 @@ export const CORE_BLOG_FIELDS = gql`
     title
     stage
     createdAt
+    publishedAt
     excerpt
     views
     content {
@@ -109,11 +110,20 @@ export const ARTICLE_QUERY = gql`
           orderBy: publishedAt_ASC
           first: 3
         ) {
+          categories {
+            name
+            slug
+            id
+          }
           id
           title
           slug
+          createdAt
           publishedAt
           excerpt
+          coverImage {
+            url(transformation: { document: { output: { format: webp } } })
+          }
         }
       }
     }
@@ -169,7 +179,7 @@ export const BLOG_ON_CATEGORY_QUERY = gql`
       first: $first
       after: $after
       where: { categories_every: { slug: $slug } }
-      orderBy: createdAt_DESC
+      orderBy: publishedAt_DESC
     ) {
       edges {
         cursor
