@@ -1,18 +1,24 @@
 import { IoMdSearch } from "react-icons/io";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useLazyQuery } from "@apollo/client";
+import { SEARCH_ARTICLE_QUERY } from "@/lib/query";
 
 export const SearchBox = () => {
   const [text, setText] = useState("");
   const router = useRouter();
-
+  const [search] = useLazyQuery(SEARCH_ARTICLE_QUERY, {
+    variables: {
+      query: text,
+    },
+  });
   return (
     <div className="w-full">
       <form
         className="flex items-center gap-2 w-full"
         onSubmit={(e) => {
           e.preventDefault();
-
+          search();
           router.push(`/search?q=${text}`);
         }}
       >

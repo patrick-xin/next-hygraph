@@ -1,5 +1,3 @@
-"use client";
-
 import { useFetch } from "@/lib/hooks";
 import { ArticleCard } from "./ArticleCard";
 

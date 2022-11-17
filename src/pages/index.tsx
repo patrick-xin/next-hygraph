@@ -154,5 +154,6 @@ export const getStaticProps: GetStaticProps = async () => {
       carousel: data.blogs,
       menu: menu,
     },
+    revalidate: 10,
   };
 };

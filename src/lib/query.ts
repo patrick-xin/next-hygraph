@@ -154,7 +154,12 @@ export const UPDATE_BLOG_VIEWS = gql`
 
 export const BLOG_ON_CATEGORY_QUERY = gql`
   ${CORE_BLOG_FIELDS}
-  query BlogOnCategoryQuery($first: Int!, $after: String, $slug: String!) {
+  query BlogOnCategoryQuery(
+    $first: Int!
+    $after: String
+    $slug: String!
+    $order: BlogOrderByInput
+  ) {
     categories {
       name
       id
@@ -179,7 +184,7 @@ export const BLOG_ON_CATEGORY_QUERY = gql`
       first: $first
       after: $after
       where: { categories_every: { slug: $slug } }
-      orderBy: publishedAt_DESC
+      orderBy: $order
     ) {
       edges {
         cursor
@@ -312,6 +317,14 @@ export const SEARCH_ARTICLE_QUERY = gql`
   query SearchArticleQuery($query: String!) {
     blogs(where: { title_contains: $query }) {
       ...BlogParts
+    }
+    authors(where: { slug_contains: $query }) {
+      firstName
+      lastName
+      slug
+      avatar {
+        url
+      }
     }
     menus {
       label

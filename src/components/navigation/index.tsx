@@ -23,7 +23,7 @@ export const Navbar = ({ menu, shown }: { menu: Menu; shown: boolean }) => {
           >
             <div className="bg-[#F0F0F0] dark:bg-black w-full h-full">
               <nav className="w-full h-full flex items-center justify-between px-6 lg:px-24">
-                <div className="flex justify-between w-full">
+                <div className="flex justify-between w-full flex-1">
                   <Link href="/" className="inline-block">
                     {menu?.["Livingetc"]?.label}
                   </Link>

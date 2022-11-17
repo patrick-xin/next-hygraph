@@ -37,7 +37,7 @@ const NavigationMenu = ({ menu }: { menu: Menu }) => {
             )}
           >
             <div className="w-[21rem] lg:w-[40rem] xl:w-[70vw]">
-              <div className="grid grid-cols-2 gap-4 p-10 xl:grid-cols-3">
+              <div className="grid grid-cols-2 gap-4 p-10">
                 {menu["Trends"]!.blogs.map((link, index) => (
                   /* @ts-expect-error */
                   // TODO Fix Next Link children Props

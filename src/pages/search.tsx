@@ -1,14 +1,29 @@
-import { SEARCH_ARTICLE_QUERY } from "@/lib/query";
-import { Blog, IMenu, Menu } from "@/lib/types";
+import { SEARCH_ARTICLE_QUERY, MENUS_QUERY } from "@/lib/query";
+import { Author, Blog, IMenu, Menu } from "@/lib/types";
 
 import { client } from "@/lib/client";
+import { BiLoaderAlt } from "react-icons/bi";
 
-import { GetServerSideProps } from "next";
+import { GetStaticProps } from "next";
 import { Main } from "@/templates/Main";
 import { Meta } from "@/layouts/Meta";
 import { LayoutContainer } from "@/layouts/LayoutContainer";
+import { useRouter } from "next/router";
+import { useQuery } from "@apollo/client";
+import { ArticleCard } from "@/components/shared/ArticleCard";
+import { AuthorAvatar } from "@/components/shared/AuthorAvatar";
 
-const SearchPage = ({ blogs, menu }: { blogs: Blog[]; menu: Menu }) => {
+const SearchPage = ({ menu }: { menu: Menu }) => {
+  const { query } = useRouter();
+  const { data, loading, error } = useQuery<{
+    blogs: Blog[];
+    authors: Author[];
+  }>(SEARCH_ARTICLE_QUERY, {
+    variables: {
+      query: query.q,
+    },
+  });
+
   return (
     <Main
       menu={menu}
@@ -20,15 +35,46 @@ const SearchPage = ({ blogs, menu }: { blogs: Blog[]; menu: Menu }) => {
       }
     >
       <LayoutContainer>
-        {blogs.length === 0 ? (
-          <div>No Resullts found</div>
-        ) : (
-          blogs.map((blog) => (
-            <div key={blog.id}>
-              <h2>{blog.title}</h2>
+        <div className="max-w-5xl mx-auto">
+          {loading ? (
+            <div className="flex justify-center p-6">
+              <BiLoaderAlt className="h-8 w-8 animate-spin" />
             </div>
-          ))
-        )}
+          ) : error ? (
+            <div className="bg-red-700/50 p-6 h-16 w-1/2">
+              error loading data
+            </div>
+          ) : (
+            <div className="space-y-6">
+              <h1 className="text-3xl">
+                Search Result for <span>"{query.q}"</span>
+              </h1>
+              <section className="my-6 space-y-6 py-4">
+                <h2 className="text-2xl">
+                  Authors:{" "}
+                  <span className="text-3xl">{data?.authors.length}</span>
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                  {data?.authors.map((author) => (
+                    <AuthorAvatar author={author} key={author.slug} />
+                  ))}
+                </div>
+              </section>
+              <hr className="w-full" />
+              <section className="my-6 space-y-6">
+                <h2 className="text-2xl">
+                  Articles:{" "}
+                  <span className="text-3xl">{data?.blogs.length}</span>
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {data?.blogs.map((blog) => (
+                    <ArticleCard key={blog.id} {...blog} />
+                  ))}
+                </div>
+              </section>
+            </div>
+          )}
+        </div>
       </LayoutContainer>
     </Main>
   );
@@ -36,12 +82,9 @@ const SearchPage = ({ blogs, menu }: { blogs: Blog[]; menu: Menu }) => {
 
 export default SearchPage;
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const { data } = await client.query<{ blogs: Blog[]; menus: IMenu[] }>({
-    query: SEARCH_ARTICLE_QUERY,
-    variables: {
-      query: query.q,
-    },
+export const getStaticProps: GetStaticProps = async () => {
+  const { data } = await client.query<{ menus: IMenu[] }>({
+    query: MENUS_QUERY,
   });
 
   const menu = data.menus.reduce((acc, menu) => {
@@ -50,7 +93,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
   return {
     props: {
-      blogs: data.blogs,
       menu,
     },
   };

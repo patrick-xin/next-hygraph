@@ -65,8 +65,8 @@ const WriterPage = ({
             </div>
           </div>
         </section>
-        <hr className="w-full my-8 block bg-brand h-[3px]" />
-        <section>
+        <hr className="w-full my-8 block h-[3px]" />
+        <section className="max-w-6xl mx-auto">
           <h3 className="font-semibold text-2xl lg:text-3xl my-6">
             Recent articles
           </h3>

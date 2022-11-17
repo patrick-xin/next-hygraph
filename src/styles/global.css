@@ -13,10 +13,6 @@ h5,
 h6 {
   @apply font-display;
 }
-html {
-  scrollbar-color: #00000080 transparent;
-  scrollbar-width: auto;
-}
 
 html[class*="dark"] {
   @apply dark:bg-[#050505];

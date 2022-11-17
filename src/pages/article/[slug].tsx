@@ -200,5 +200,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       post: withbBurDataUrl,
       menu: menu,
     },
+    revalidate: 10,
   };
 };

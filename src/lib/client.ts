@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 export const client = new ApolloClient({
-  uri: process.env.GRAPHCMS_ENV,
+  uri: process.env.NEXT_PUBLIC_GRAPHCMS_ENV,
   cache: new InMemoryCache(),
 });
