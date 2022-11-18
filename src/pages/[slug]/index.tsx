@@ -2,7 +2,7 @@ import { client } from "@/lib/client";
 import { BLOG_ON_CATEGORY_QUERY, CATEGORIES_QUERY } from "@/lib/query";
 import { BlogsConnection, Category, Edge, IMenu, Menu } from "@/lib/types";
 import { GetStaticPaths, GetStaticProps } from "next";
-
+import cn from "clsx";
 import { ArticleCard } from "@/components/shared/ArticleCard";
 
 import { LayoutContainer } from "@/layouts/LayoutContainer";
@@ -13,11 +13,10 @@ import { getPlaiceholder } from "plaiceholder";
 
 import { useLazyQuery } from "@apollo/client";
 import { useState } from "react";
-import { Listbox } from "@headlessui/react";
-import { MdCheckCircleOutline } from "react-icons/md";
-import { BiChevronDown } from "react-icons/bi";
 
 import { CategoryHero } from "@/components/pages/category/Hero";
+import { OrderSelect } from "@/components/pages/category/OrderSelect";
+import { BreadCombs } from "@/components/navigation/BreadCombs";
 
 type Props = {
   categoryName: string;
@@ -28,80 +27,6 @@ type Props = {
   endCursor: string;
   initialHasNextPage: boolean;
   menu: Menu;
-};
-
-const ORDERS = [
-  {
-    name: "Title",
-    order: "title_DESC",
-  },
-  {
-    name: "Published At",
-    order: "publishedAt_DESC",
-  },
-];
-
-const OrderSelect = ({
-  order,
-  onChange,
-}: {
-  order: "title_DESC" | "publishedAt_DESC";
-  onChange: (order: "Title" | "Published At") => void;
-}) => {
-  const current =
-    ORDERS[
-      Math.max(
-        0,
-        ORDERS.findIndex((t) => t.order === order)
-      )
-    ];
-
-  return (
-    <div className="w-40">
-      <Listbox value={order} onChange={onChange}>
-        <div className="relative border dark:border-white/10 z-300 rounded-lg">
-          <Listbox.Button className="inline-flex w-full justify-center items-center rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white gap-2 focus-visible:ring-opacity-75">
-            <span>{current!.name}</span>
-            <BiChevronDown className="w-6 h-6" />
-          </Listbox.Button>
-          <Listbox.Options className="absolute max-h-60 w-full overflow-auto rounded-md mt-2 py-1 text-base shadow-lg dark:bg-black">
-            {ORDERS.map((order) => (
-              <Listbox.Option
-                key={order.name}
-                value={order.name}
-                className={({ active }) =>
-                  `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
-                    active ? "opacity-100" : "opacity-80"
-                  }`
-                }
-              >
-                {({ selected }) => (
-                  <div className="inline-flex gap-4">
-                    <span
-                      className={`block truncate ${
-                        selected ? "font-bold" : "font-normal"
-                      }`}
-                    >
-                      {order.name.toLowerCase()}
-                    </span>
-
-                    {selected ? (
-                      <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                        <MdCheckCircleOutline
-                          className="h-5 w-5"
-                          aria-hidden="true"
-                        />
-                      </span>
-                    ) : null}
-                  </div>
-                )}
-              </Listbox.Option>
-            ))}
-          </Listbox.Options>
-        </div>
-      </Listbox>
-    </div>
-  );
 };
 
 const CategoryPage = ({
@@ -132,6 +57,7 @@ const CategoryPage = ({
       setPost(data.blogsConnection.edges[0]);
     },
   });
+  const clientHasNextPage = data && data.blogsConnection.pageInfo.hasNextPage;
 
   const handleSelect = (order: "Title" | "Published At") => {
     if (order === "Title") {
@@ -154,6 +80,10 @@ const CategoryPage = ({
       }
     >
       <LayoutContainer>
+        <div className="max-w-6xl mx-auto my-6">
+          <BreadCombs label={slug.split("-").join(" ")} href={`/${slug}`} />
+        </div>
+
         <h1 className="text-3xl lg:text-6xl font-bold text-center my-12 uppercase">
           {slug.split("-").join(" ")}
         </h1>
@@ -173,19 +103,23 @@ const CategoryPage = ({
           </div>
         </section>
         <div>
-          {initialHasNextPage ||
-            (data?.blogsConnection.pageInfo.hasNextPage && (
-              <button
-                disabled={loading}
-                className="bg-brand px-2.5 py-1.5 text-white rounded-md my-6 lg:my-8 disabled:cursor-not-allowed"
-                onClick={() => {
-                  setCount((c) => c + 4);
-                  fetch();
-                }}
-              >
-                {loading ? "loading..." : "Load more"}
-              </button>
-            ))}
+          {initialHasNextPage && (
+            <button
+              disabled={loading}
+              className={cn(
+                "bg-brand px-2.5 py-1.5 text-white rounded-md my-6 lg:my-8 disabled:cursor-not-allowed",
+                {
+                  hidden: clientHasNextPage !== undefined,
+                }
+              )}
+              onClick={() => {
+                setCount((c) => c + 4);
+                fetch();
+              }}
+            >
+              {loading ? "loading..." : "Load more"}
+            </button>
+          )}
         </div>
       </LayoutContainer>
     </Main>

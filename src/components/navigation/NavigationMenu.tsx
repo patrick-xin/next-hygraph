@@ -7,15 +7,15 @@ import { Menu } from "@/lib/types";
 
 const topics = [
   {
-    href: "/category/design-ideas",
+    href: "/design-ideas",
     label: "Design Ideas",
   },
   {
-    href: "/category/shopping",
+    href: "/shopping",
     label: "Shopping",
   },
   {
-    href: "/category/expert-advice",
+    href: "/expert-advice",
     label: "Expert Advice",
   },
 ];
@@ -36,8 +36,8 @@ const NavigationMenu = ({ menu }: { menu: Menu }) => {
               "radix-motion-to-end:animate-exit-to-right"
             )}
           >
-            <div className="w-[21rem] lg:w-[40rem] xl:w-[70vw]">
-              <div className="grid grid-cols-2 gap-4 p-10">
+            <div className="w-[21rem] lg:w-[40rem] xl:w-[90vw]">
+              <div className="grid grid-cols-1 gap-4 p-10">
                 {menu["Trends"]!.blogs.map((link, index) => (
                   /* @ts-expect-error */
                   // TODO Fix Next Link children Props
@@ -50,12 +50,10 @@ const NavigationMenu = ({ menu }: { menu: Menu }) => {
                     )}
                   >
                     <div className="flex items-center gap-5">
-                      <Image
-                        src={link.coverImage.url}
-                        width={100}
-                        height={100}
-                        alt="image"
-                      />
+                      <div className="relative h-44 w-44">
+                        <Image src={link.coverImage.url} fill alt="image" />
+                      </div>
+
                       <div>{link.title}</div>
                     </div>
                   </MainMenuControlLink>
@@ -69,7 +67,7 @@ const NavigationMenu = ({ menu }: { menu: Menu }) => {
         </NavigationMenuPrimitive.Item>
 
         <NavigationMenuPrimitive.Item>
-          <TriggerTitle title="Home Tours" />
+          <TriggerTitle title="Browser Category" />
 
           <NavigationMenuPrimitive.Content
             className={cx(
@@ -88,7 +86,7 @@ const NavigationMenu = ({ menu }: { menu: Menu }) => {
                     href={topic.href}
                     key={index}
                     className={cx(
-                      "w-full px-4 inline-block py-3 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md",
+                      "w-full px-4 inline-block py-3 hover:bg-gray-100 dark:hover:bg-black/10 rounded-md",
                       "focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
                     )}
                   >
@@ -100,14 +98,6 @@ const NavigationMenu = ({ menu }: { menu: Menu }) => {
           </NavigationMenuPrimitive.Content>
         </NavigationMenuPrimitive.Item>
 
-        <NavigationMenuPrimitive.Item>
-          <Link
-            href={menu["Shopping"]!.path}
-            className="px-3 py-2 rounded-md capitalize text-lg lg:text-xl font-display text-gray-700 dark:text-gray-100"
-          >
-            {menu["Shopping"]!.label}
-          </Link>
-        </NavigationMenuPrimitive.Item>
         <NavigationMenuPrimitive.Item>
           <Link
             href="/about"
@@ -125,14 +115,14 @@ const NavigationMenu = ({ menu }: { menu: Menu }) => {
             "transition-[width_transform] duration-[250ms] ease-[ease]"
           )}
         >
-          <div className="top-1 relative bg-white dark:bg-[#181818] w-2 h-2 rotate-45" />
+          <div className="top-1 relative bg-white dark:bg-[#050505] w-2 h-2 rotate-45" />
         </NavigationMenuPrimitive.Indicator>
       </NavigationMenuPrimitive.List>
 
       <div
         className={cx(
           "absolute flex justify-center z-300",
-          "w-[180%] left-[-66%] top-[100%]"
+          "w-[200%] left-[-100%] top-[100%]"
         )}
         style={{
           perspective: "2400px",
@@ -140,7 +130,7 @@ const NavigationMenu = ({ menu }: { menu: Menu }) => {
       >
         <NavigationMenuPrimitive.Viewport
           className={cx(
-            "relative mt-2 shadow-lg rounded-md bg-white dark:bg-[#1b1b1b] overflow-hidden z-300",
+            "relative mt-2 shadow-lg rounded-md bg-white dark:bg-[#050505] overflow-hidden z-300",
             "w-radix-navigation-menu-viewport",
             "h-radix-navigation-menu-viewport",
             "radix-state-open:animate-scale-in-content",

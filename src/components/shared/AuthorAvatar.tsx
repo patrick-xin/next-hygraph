@@ -48,6 +48,7 @@ export const AuthorAvatar = ({
           fill
           className="rounded-full object-cover"
           alt="author-avatar"
+          sizes="48px"
         />
       </div>
 

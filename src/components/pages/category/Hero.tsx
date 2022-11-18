@@ -6,8 +6,9 @@ import Link from "next/link";
 export const CategoryHero = ({ article }: { article: Blog }) => {
   return (
     <section className="hidden lg:block max-w-6xl mx-auto relative mb-40">
-      <div className="h-[50vh] z-10">
+      <div className="h-[50vh] z-10 relative">
         <Image
+          priority
           src={article.coverImage.url}
           alt="img"
           fill

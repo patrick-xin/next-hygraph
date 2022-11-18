@@ -78,7 +78,7 @@ const EmblaCarousel = ({ carousel }: { carousel: Blog[] }) => {
           <div className="embla__container">
             {carousel.map((slide, index) => (
               <div className="embla__slide relative" key={index}>
-                <div className="relative overflow-hidden h-[55vh]">
+                <div className="relative overflow-hidden h-[60vh]">
                   <Image
                     onLoadingComplete={() => {
                       setPrevBtnEnabled(true);
@@ -92,6 +92,7 @@ const EmblaCarousel = ({ carousel }: { carousel: Blog[] }) => {
                       slide.coverImage.blurDataUrl ? "blur" : "empty"
                     }
                     fill
+                    priority
                   />
                 </div>
                 <div className="absolute inset-0 m-auto ml-2.5 flex items-center justify-center">

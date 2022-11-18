@@ -29,7 +29,9 @@ const Main = (props: IMainProps) => {
         menu={props.menu}
         shown={!scrollDown || !route.includes("article")}
       />
-      <div className="py-6 overflow-hidden h-auto mt-32">{props.children}</div>
+      <div className="py-6 overflow-hidden h-auto mt-16 lg:mt-32">
+        {props.children}
+      </div>
 
       <Footer />
     </>

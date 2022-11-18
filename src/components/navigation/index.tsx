@@ -19,7 +19,7 @@ export const Navbar = ({ menu, shown }: { menu: Menu; shown: boolean }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ ease: "linear" }}
-            className="fixed inset-0 w-full h-16 lg:h-32 z-50 rounded-b-lg"
+            className="fixed inset-0 w-full h-16 lg:h-32 z-200 rounded-b-lg"
           >
             <div className="bg-[#F0F0F0] dark:bg-black w-full h-full">
               <nav className="w-full h-full flex items-center justify-between px-6 lg:px-24">
@@ -49,7 +49,6 @@ export const Navbar = ({ menu, shown }: { menu: Menu; shown: boolean }) => {
         )}
       </AnimatePresence>
       <Drawer open={open} close={() => setOpen(false)} />
-      {/* <MobileMenu /> */}
     </>
   );
 };

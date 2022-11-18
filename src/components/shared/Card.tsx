@@ -31,16 +31,16 @@ const Card = ({ article }: { article: Blog }) => {
             />
           </motion.div>
 
-          <div className="self-start lg:pl-12">
+          <div className="self-start">
             <PublishDate publishedAt={publishedAt} />
           </div>
 
-          <div className="lg:mx-12">
+          <div className="">
             <h3 className="text-lg space-y-2">
               <span className="font-semibold text-sm">
                 {categories[0]?.name}
               </span>
-              <span className="line-clamp-3">{title}</span>
+              <span className="line-clamp-3 text-2xl">{title}</span>
             </h3>
           </div>
         </div>
