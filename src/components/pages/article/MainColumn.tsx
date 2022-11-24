@@ -50,6 +50,7 @@ export const MainColumn = ({ post }: { post: Blog }) => {
               image: ({ url, width, height, blurDataUrl }) => {
                 return (
                   <Image
+                    className="rounded aspect-[4/3] object-cover"
                     src={url}
                     alt="image"
                     width={width}
